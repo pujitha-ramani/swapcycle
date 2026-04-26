@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SwapCycle — Turn Waste into Value</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo" onclick="showPage('home')">
+    <div class="nav-logo-icon">♻</div>
+    SwapCycle
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="nav(this,'home')">Home</button>
+    <button class="nav-link" onclick="nav(this,'marketplace')">Browse</button>
+    <button class="nav-link" onclick="nav(this,'dashboard')">Dashboard</button>
+    <button class="nav-link" onclick="nav(this,'profile')">Profile</button>
+  </div>
+  <div class="nav-user">
+    <button class="nav-btn" onclick="nav(document.querySelector('.nav-links button:nth-child(1)'),'post')">+ Post Item</button>
+    <div class="avatar" onclick="nav(document.querySelector('.nav-links button:nth-child(4)'),'profile')">AK</div>
+  </div>
+</nav>
+
+<div class="toast-container" id="toasts"></div>
+
+<!-- CLAIM MODAL -->
+<div class="modal-overlay" id="modal" style="display:none">
+  <div class="modal">
+    <h2 id="modal-title">Claim this item?</h2>
+    <p id="modal-body">You'll be notified to collect this item. The poster will receive your contact info.</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-confirm" id="modal-confirm">Confirm Claim</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== HOME PAGE ========== -->
+<div class="page active" id="pg-home">
+  <div class="hero">
+    <div class="hero-tag">🌿 Recycling Made Instant</div>
+    <h1>Turn Waste into Value Instantly</h1>
+    <p>Post your recyclable items and let nearby recyclers claim them in one click. Reduce waste, earn value, help the planet.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="nav(document.querySelector('.nav-links button:nth-child(1)'),'post')">📦 Post Item</button>
+      <button class="btn-outline" onclick="nav(document.querySelector('.nav-links button:nth-child(2)'),'marketplace')">🔍 Browse Items</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num" id="stat-items">248</div><div class="hero-stat-label">Items listed</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">94</div><div class="hero-stat-label">Active recyclers</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">1.2t</div><div class="hero-stat-label">Waste diverted</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">18</div><div class="hero-stat-label">Cities</div></div>
+    </div>
+  </div>
+
+  <div style="background:white">
+    <div class="steps">
+      <p class="section-label">How it works</p>
+      <div class="section-title">Three steps to zero waste</div>
+      <div class="steps-grid">
+        <div class="step-card"><div class="step-num">1</div><div class="step-icon-big">📸</div><h3>Post your waste</h3><p>Snap a quick detail — type, quantity, and your pin location. Takes 30 seconds.</p></div>
+        <div class="step-card"><div class="step-num">2</div><div class="step-icon-big">🔔</div><h3>Recyclers get notified</h3><p>Nearby verified recyclers see your item instantly and can claim it right away.</p></div>
+        <div class="step-card"><div class="step-num">3</div><div class="step-icon-big">✅</div><h3>Collection confirmed</h3><p>Track the pickup in real time. Mark as collected once it's done. Repeat!</p></div>
+        <div class="step-card"><div class="step-num">4</div><div class="step-icon-big">🌱</div><h3>Earn impact points</h3><p>Every successful swap earns you EcoPoints redeemable for local rewards.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="features-inner">
+      <p class="section-label">Features</p>
+      <div class="section-title" style="margin-bottom:28px">Built for speed &amp; trust</div>
+      <div class="features-grid">
+        <div class="feature-card"><div class="feature-icon">⚡</div><h4>Instant claiming</h4><p>Recyclers can claim available items with one tap — no back-and-forth needed.</p></div>
+        <div class="feature-card"><div class="feature-icon">📍</div><h4>Location-based</h4><p>Smart proximity matching shows items and recyclers in your area first.</p></div>
+        <div class="feature-card"><div class="feature-icon">🏷️</div><h4>Status tracking</h4><p>Live badges — Available, Claimed, Collected — keep everyone in sync.</p></div>
+        <div class="feature-card"><div class="feature-icon">🔒</div><h4>Verified recyclers</h4><p>All recyclers are verified businesses or certified individuals you can trust.</p></div>
+        <div class="feature-card"><div class="feature-icon">📊</div><h4>Impact dashboard</h4><p>See your personal waste diverted, CO₂ saved, and items recycled over time.</p></div>
+        <div class="feature-card"><div class="feature-icon">♻️</div><h4>All waste types</h4><p>Plastic, metal, paper, glass, e-waste, organic — every category covered.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h2>Ready to swap?</h2>
+    <p>Join thousands of users already making an impact.</p>
+    <button class="btn-primary" onclick="nav(document.querySelector('.nav-links button:nth-child(1)'),'post')">Get Started Free →</button>
+  </div>
+</div>
+
+<!-- ========== MARKETPLACE PAGE ========== -->
+<div class="page" id="pg-marketplace">
+  <div class="container">
+    <div class="page-header">
+      <div><div class="page-title">Browse Items</div><div class="page-sub">Find recyclable materials near you</div></div>
+      <button class="btn-green" onclick="nav(document.querySelector('.nav-links button:nth-child(1)'),'post')">+ Post Item</button>
+    </div>
+    <div class="search-bar">
+      <input class="search-input" type="text" placeholder="Search by type, material, location..." id="search-input" oninput="filterItems()" />
+    </div>
+    <div class="filters" id="market-filters">
+      <button class="filter-btn active" onclick="setFilter(this,'all')">All</button>
+      <button class="filter-btn" onclick="setFilter(this,'available')">🟢 Available</button>
+      <button class="filter-btn" onclick="setFilter(this,'claimed')">🟡 Claimed</button>
+      <button class="filter-btn" onclick="setFilter(this,'collected')">⚫ Collected</button>
+      <button class="filter-btn" onclick="setCatFilter(this,'plastic')">🧴 Plastic</button>
+      <button class="filter-btn" onclick="setCatFilter(this,'metal')">🔩 Metal</button>
+      <button class="filter-btn" onclick="setCatFilter(this,'paper')">📄 Paper</button>
+      <button class="filter-btn" onclick="setCatFilter(this,'glass')">🍶 Glass</button>
+      <button class="filter-btn" onclick="setCatFilter(this,'ewaste')">💻 E-Waste</button>
+      <button class="filter-btn" onclick="setCatFilter(this,'organic')">🌿 Organic</button>
+    </div>
+    <div class="items-grid" id="items-grid"></div>
+  </div>
+</div>
+
+<!-- ========== POST ITEM PAGE ========== -->
+<div class="page" id="pg-post">
+  <div class="container">
+    <button class="back-btn" onclick="nav(document.querySelector('.nav-links button:nth-child(2)'),'marketplace')">← Back to browse</button>
+    <div class="page-header" style="margin-bottom:20px">
+      <div><div class="page-title">Post a Waste Item</div><div class="page-sub">List your recyclable materials for pickup</div></div>
+    </div>
+    <div class="form-card">
+      <div class="form-group">
+        <label class="form-label">Waste category</label>
+        <div class="cat-grid" id="cat-grid">
+          <button class="cat-btn" onclick="selectCat(this,'plastic')"><span>🧴</span><span>Plastic</span></button>
+          <button class="cat-btn" onclick="selectCat(this,'metal')"><span>🔩</span><span>Metal</span></button>
+          <button class="cat-btn" onclick="selectCat(this,'paper')"><span>📄</span><span>Paper</span></button>
+          <button class="cat-btn" onclick="selectCat(this,'glass')"><span>🍶</span><span>Glass</span></button>
+          <button class="cat-btn" onclick="selectCat(this,'ewaste')"><span>💻</span><span>E-Waste</span></button>
+          <button class="cat-btn" onclick="selectCat(this,'organic')"><span>🌿</span><span>Organic</span></button>
+          <button class="cat-btn" onclick="selectCat(this,'textile')"><span>👕</span><span>Textile</span></button>
+          <button class="cat-btn" onclick="selectCat(this,'other')"><span>📦</span><span>Other</span></button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Item title / description</label>
+        <input class="form-input" type="text" placeholder="e.g. Cardboard boxes, assorted sizes" id="post-title" />
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="form-group">
+          <label class="form-label">Quantity</label>
+          <input class="form-input" type="text" placeholder="e.g. 5 kg, 20 units" id="post-qty" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Condition</label>
+          <select class="form-select" id="post-cond">
+            <option>Clean &amp; sorted</option>
+            <option>Mixed / unsorted</option>
+            <option>Compressed / baled</option>
+            <option>Damaged</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Pickup location</label>
+        <input class="form-input" type="text" placeholder="Area or address (e.g. Kakinada, AP)" id="post-loc" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Additional notes</label>
+        <textarea class="form-textarea" placeholder="Any extra info for the recycler…" id="post-notes"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Available from</label>
+        <input class="form-input" type="date" id="post-date" />
+      </div>
+      <button class="btn-green" style="width:100%;padding:14px;font-size:15px;border-radius:var(--radius-md)" onclick="submitPost()">🚀 Post Item for Pickup</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== ITEM DETAIL PAGE ========== -->
+<div class="page" id="pg-detail">
+  <div class="container">
+    <button class="back-btn" onclick="nav(document.querySelector('.nav-links button:nth-child(2)'),'marketplace')">← Back to marketplace</button>
+    <div class="detail-layout" id="detail-content"></div>
+  </div>
+</div>
+
+<!-- ========== DASHBOARD PAGE ========== -->
+<div class="page" id="pg-dashboard">
+  <div class="container">
+    <div class="page-header">
+      <div><div class="page-title">My Dashboard</div><div class="page-sub">Track your items and impact</div></div>
+      <button class="btn-green" onclick="nav(document.querySelector('.nav-links button:nth-child(1)'),'post')">+ Post Item</button>
+    </div>
+    <div class="tab-bar">
+      <div class="tab active" onclick="dashTab(this,'user')">As Poster</div>
+      <div class="tab" onclick="dashTab(this,'recycler')">As Recycler</div>
+      <div class="tab" onclick="dashTab(this,'impact')">My Impact</div>
+    </div>
+    <div id="dash-user">
+      <div class="dash-grid">
+        <div class="stat-card"><div class="stat-icon">📦</div><div class="stat-num" id="d-posted">0</div><div class="stat-label">Items posted</div></div>
+        <div class="stat-card"><div class="stat-icon">🟡</div><div class="stat-num" id="d-claimed-ct">0</div><div class="stat-label">Claimed by recyclers</div></div>
+        <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-num" id="d-collected-ct">0</div><div class="stat-label">Collected</div></div>
+        <div class="stat-card"><div class="stat-icon">⏳</div><div class="stat-num" id="d-available-ct">0</div><div class="stat-label">Available now</div></div>
+      </div>
+      <div class="page-title" style="font-size:1.1rem;margin-bottom:14px">My listed items</div>
+      <div class="items-grid" id="my-items-grid"></div>
+    </div>
+    <div id="dash-recycler" style="display:none">
+      <div class="dash-grid">
+        <div class="stat-card"><div class="stat-icon">🔖</div><div class="stat-num">3</div><div class="stat-label">Items claimed</div></div>
+        <div class="stat-card"><div class="stat-icon">🚛</div><div class="stat-num">2</div><div class="stat-label">Collected</div></div>
+        <div class="stat-card"><div class="stat-icon">⭐</div><div class="stat-num">4.9</div><div class="stat-label">Avg rating</div></div>
+        <div class="stat-card"><div class="stat-icon">🏆</div><div class="stat-num">450</div><div class="stat-label">EcoPoints</div></div>
+      </div>
+      <div class="page-title" style="font-size:1.1rem;margin-bottom:14px">Items I've claimed</div>
+      <div class="items-grid" id="claimed-items-grid"></div>
+    </div>
+    <div id="dash-impact" style="display:none">
+      <div class="dash-grid">
+        <div class="stat-card impact-card"><div class="stat-icon">♻️</div><div class="stat-num">38 kg</div><div class="stat-label">Waste diverted</div></div>
+        <div class="stat-card impact-card"><div class="stat-icon">🌿</div><div class="stat-num">22 kg</div><div class="stat-label">CO₂ saved</div></div>
+        <div class="stat-card impact-card"><div class="stat-icon">💧</div><div class="stat-num">410L</div><div class="stat-label">Water saved</div></div>
+        <div class="stat-card impact-card"><div class="stat-icon">🌟</div><div class="stat-num">820</div><div class="stat-label">EcoPoints earned</div></div>
+      </div>
+      <div class="impact-banner">
+        <div class="impact-title">🌱 Your green streak: 12 weeks!</div>
+        <p>You've been actively posting or claiming every week for 12 weeks. Keep it up — you're a SwapCycle champion!</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px">
+          <span class="tag">🌍 Planet Saver</span><span class="tag">♻️ Active Recycler</span><span class="tag">📦 Super Poster</span><span class="tag">⚡ Fast Claimer</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PROFILE PAGE ========== -->
+<div class="page" id="pg-profile">
+  <div class="profile-header">
+    <div class="profile-avatar">AK</div>
+    <div class="profile-name">Arjun Kumar</div>
+    <div class="profile-role">User &amp; Recycler · Member since Jan 2024</div>
+    <div class="profile-stats">
+      <div class="p-stat"><div class="p-stat-num" id="pp-items">0</div><div class="p-stat-label">Items posted</div></div>
+      <div class="p-stat"><div class="p-stat-num">3</div><div class="p-stat-label">Items claimed</div></div>
+      <div class="p-stat"><div class="p-stat-num">820</div><div class="p-stat-label">EcoPoints</div></div>
+    </div>
+  </div>
+  <div class="container" style="padding-top:24px">
+    <div class="profile-grid">
+      <div class="form-card">
+        <div class="form-section-title">Account Info</div>
+        <div class="form-group"><label class="form-label">Full name</label><input class="form-input" value="Arjun Kumar" /></div>
+        <div class="form-group"><label class="form-label">Email</label><input class="form-input" value="arjun@example.com" /></div>
+        <div class="form-group"><label class="form-label">Phone</label><input class="form-input" value="+91 98765 43210" /></div>
+        <div class="form-group"><label class="form-label">City</label><input class="form-input" value="Kakinada, AP" /></div>
+        <button class="btn-green">Save changes</button>
+      </div>
+      <div>
+        <div class="form-card" style="margin-bottom:16px">
+          <div class="form-section-title">Notifications</div>
+          <div class="notif-list">
+            <label><input type="checkbox" checked /> Item claimed alerts</label>
+            <label><input type="checkbox" checked /> Nearby item alerts</label>
+            <label><input type="checkbox" /> Weekly impact report</label>
+            <label><input type="checkbox" checked /> Collection reminders</label>
+          </div>
+        </div>
+        <div class="ecopoints-card">
+          <div class="form-section-title" style="color:var(--green-800)">EcoPoints Balance</div>
+          <div class="ecopoints-num">820 pts</div>
+          <div class="ecopoints-sub">≈ ₹164 in rewards</div>
+          <button class="btn-green" style="margin-top:14px;width:100%">Redeem points</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
